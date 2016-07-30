@@ -1,0 +1,128 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<!--
+  clearing the db:
+  drop table TARGET_GROUP if exists;
+  drop table TARGET_IPV6 if exists;
+  drop table TARGET_IPV4_RANGE if exists;
+  drop table TARGET_IPV4_SUBNET if exists;
+  drop table TARGET_IPV4 if exists;
+  drop table TARGET_INTERFACE if exists;
+  drop table EVENT_BYTES_RECEIVED if exists;
+  drop table EVENT_BYTES_SENT if exists;
+  drop table EVENT_BYTES_EXCHANGED if exists;
+  drop table EVENT_FLOOD if exists;
+  drop table EVENT_HTTP if exists;
+  drop table EVENT_HTTP_PAGES if exists;
+  drop table EVENT_NMAP if exists;
+  drop table EVENT_REACHABLE if exists;
+  drop table EVENT_PROCESS if exists;
+  drop table EVENT_SOURCE if exists;
+  drop table IP_QUERIER if exists;
+  drop table GENERIC_QUERIER if exists;
+  drop table SNMP_QUERIER if exists;
+  drop table EVENT_GENERIC if exists;
+  drop table EVENT_LIST if exists;
+  drop table VISUAL_ELEMENT_TO_CHILDREN if exists;
+  drop table ACTION_FLOOD if exists;
+  drop table ACTION_HTTP if exists;
+  drop table ACTION_NMAP if exists;
+  drop table ACTION_PING if exists;
+  drop table ACTION_PROCESS if exists;
+  drop table ACTION_SOURCE if exists;
+  drop table ACTION_SNMP if exists;
+  drop table ACTION if exists;
+  drop table REACHABLE_VIEW if exists;
+  drop table PROCESS_VIEW if exists;
+  drop table SOURCE_VIEW if exists;
+  drop table BYTES_RECEIVED_VIEW if exists;
+  drop table BYTES_SENT_VIEW if exists;
+  drop table FLOOD_VIEW if exists;
+  drop table GENERAL_INFORMATIONS_VIEW if exists;
+  drop table HTTP_PAGES_VIEW if exists;
+  drop table HTTP_VIEW if exists;
+  drop table NMAP_VIEW if exists;
+  drop table DATA_VIEW if exists;
+  drop table TARGET if exists;
+  drop table VISUAL_ELEMENT if exists;
+-->
+
+<hibernate-configuration>
+  <session-factory>
+
+  <!-- Database connection settings -->
+  <property name="connection.driver_class">org.hsqldb.jdbcDriver</property>
+  <!-- <property name="connection.url">jdbc:hsqldb:hsql://127.0.0.1</property> -->
+  <property name="connection.url">jdbc:hsqldb:file:gnetwatchdb</property>
+
+  <property name="connection.username">sa</property>
+  <property name="connection.password"></property>
+
+  <!-- JDBC connection pool (use the built-in) -->
+  <property name="connection.pool_size">1</property>
+
+   <!-- SQL dialect -->
+  <property name="dialect">org.hibernate.dialect.HSQLDialect</property>
+
+  <!-- Enable Hibernate's automatic session context management -->
+  <property name="current_session_context_class">thread</property>
+
+  <!-- Disable the second-level cache -->
+  <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+
+  <!-- Echo all executed SQL to stdout -->
+  <!-- <property name="show_sql">true</property> -->
+
+  <!-- Drop and re-create the database schema on startup -->
+  <property name="hbm2ddl.auto">create</property>
+
+  <mapping file="VisualElement.hbm.xml"/>
+  <mapping file="EventGeneric.hbm.xml"/>
+  <mapping file="EventList.hbm.xml"/>
+  <mapping file="SNMPQuerier.hbm.xml"/>
+  <mapping file="IPQuerier.hbm.xml"/>
+  <mapping file="GenericQuerier.hbm.xml"/>
+
+  </session-factory>
+</hibernate-configuration>
+
+<!--
+
+persistent classes:
+
+VisualElement
+  Target
+    TargetGroup
+    TargetInterface
+    TargetIPv4
+    TargetIPv4Range
+    TargetIPv4Subnet
+    TargetIPv6
+  Action
+    ActionFlood
+    ActionHTTP
+    ActionNmap
+    ActionPing
+    ActionGenericProcess
+    ActionGenericSrc
+    ActionSNMP
+  DataView
+    ReachableView
+EventGeneric
+  EventBytesExchanged
+    EventBytesReceived
+    EventBytesSent
+  EventFlood
+  EventHTTP
+  EventHTTPPages
+  EventNmap
+  EventReachable
+  EventGenericProcess
+  EventGenericSrc
+EventList
+SNMPQuerier
+IPQuerier
+
+-->

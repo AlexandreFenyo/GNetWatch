@@ -1,0 +1,27 @@
+
+The JAR bundle located in this directory is a single java archive
+containing materials from external project archives merged together
+with GNetWatch java class files in order to let you get a single
+java archive containing all necessary files needed to run GNetWatch.
+
+Here is the list of those external project archives :
+
+- hibernate
+- commons-collections
+- commons-configuration
+- commons-io
+- commons-jxpath
+- commons-lang
+- commons-logging
+- hsqldb
+- log4j
+- snmp4j
+- swt
+
+The associated licenses are located in the directory named 3rdParty.
+
+-----------------------------------------------------------------------
+
+Most of the icons located in the "pictures" directory are taken from
+the Crystal SVG icons of KDE. Those icons are distributed under the
+LGPL license, located in the directory named 3rdParty.

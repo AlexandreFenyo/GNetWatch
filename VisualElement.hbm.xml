@@ -1,0 +1,170 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<!-- insérer les "create tables" correspondants -->
+
+<hibernate-mapping>
+
+  <class name="net.fenyo.gnetwatch.GUI.VisualElement" table="VISUAL_ELEMENT">
+    <id name="id" column="ID">
+      <generator class="increment"/>
+    </id>
+
+    <property name="item" column="ITEM" not-null="false"/>
+    <property name="type" column="TYPE" not-null="false"/>
+    <property name="description" column="DESCRIPTION" not-null="false"/>
+
+    <list name="children" table="VISUAL_ELEMENT_TO_CHILDREN" cascade="save-update">
+      <!-- note that the primary key of VISUAL_ELEMENT_TO_CHILDREN is not ID but (ID, LIST_INDEX) -->
+      <key column="ID" not-null="true"/>
+      <list-index column="LIST_INDEX"/>
+      <many-to-many class="net.fenyo.gnetwatch.GUI.VisualElement" column="CHILD"/>
+    </list>
+
+    <joined-subclass name="net.fenyo.gnetwatch.targets.Target" table="TARGET">
+      <key column="ID" not-null="true"/>
+
+      <property name="name" column="NAME" not-null="true"/>
+
+      <map name="eventLists" cascade="all">
+        <key column="TARGET_ID" not-null="true"/>
+        <map-key column="TYPE" type="string"/>
+        <one-to-many class="net.fenyo.gnetwatch.data.EventList"/>
+      </map>
+
+      <joined-subclass name="net.fenyo.gnetwatch.targets.TargetGroup" table="TARGET_GROUP">
+        <key column="ID" not-null="true"/>
+        <property name="groupName" column="GROUP_NAME" not-null="true"/>
+        <many-to-one name="GenericQuerier" class="net.fenyo.gnetwatch.GenericQuerier"
+                     column="GENERIC_QUERIER" unique="true" lazy="false" cascade="all" not-null="true"/>
+      </joined-subclass>
+
+      <joined-subclass name="net.fenyo.gnetwatch.targets.TargetInterface" table="TARGET_INTERFACE">
+        <key column="ID" not-null="true"/>
+        <property name="interfaceName" column="INTERFACE_NAME" not-null="true"/>
+      </joined-subclass>
+
+      <joined-subclass name="net.fenyo.gnetwatch.targets.TargetIPv4" table="TARGET_IPV4">
+        <key column="ID" not-null="true"/>
+        <property name="address" column="ADDRESS" not-null="true"/>
+        <many-to-one name="SNMPQuerier" class="net.fenyo.gnetwatch.SNMPQuerier"
+                     column="SNMP_QUERIER" unique="true" lazy="false" cascade="all" not-null="true"/>
+        <many-to-one name="IPQuerier" class="net.fenyo.gnetwatch.IPQuerier"
+                     column="IP_QUERIER" unique="true" lazy="false" cascade="all" not-null="true"/>
+      </joined-subclass>
+
+      <joined-subclass name="net.fenyo.gnetwatch.targets.TargetIPv4Range" table="TARGET_IPV4_RANGE">
+        <key column="ID" not-null="true"/>
+        <!--
+          The two following columns must NOT be automatically named
+          based on the relative property name since "begin" and "end" are
+          SQL reserved words.
+        -->
+        <property name="begin" column="RANGE_BEGIN" not-null="true"/>
+        <property name="end" column="RANGE_END" not-null="true"/>
+      </joined-subclass>
+
+      <joined-subclass name="net.fenyo.gnetwatch.targets.TargetIPv4Subnet" table="TARGET_IPV4_SUBNET">
+        <key column="ID"/>
+        <property name="network" column="NETWORK" not-null="true"/>
+        <property name="netmask" column="NETMASK" not-null="true"/>
+      </joined-subclass>
+
+      <joined-subclass name="net.fenyo.gnetwatch.targets.TargetIPv6" table="TARGET_IPV6">
+        <key column="ID" not-null="true"/>
+        <property name="address" column="ADDRESS" not-null="true"/>
+        <many-to-one name="SNMPQuerier" class="net.fenyo.gnetwatch.SNMPQuerier"
+                     column="SNMP_QUERIER" unique="true" cascade="all" not-null="true"/>
+        <many-to-one name="IPQuerier" class="net.fenyo.gnetwatch.IPQuerier"
+                     column="IP_QUERIER" unique="true" cascade="all" not-null="true"/>
+      </joined-subclass>
+
+    </joined-subclass>
+
+    <joined-subclass name="net.fenyo.gnetwatch.actions.Action" table="ACTION">
+      <key column="ID" not-null="true"/>
+
+      <many-to-one name="target" class="net.fenyo.gnetwatch.targets.Target"
+                   column="TARGET" cascade="save-update" not-null="true"/>
+
+      <joined-subclass name="net.fenyo.gnetwatch.actions.ActionFlood" table="ACTION_FLOOD">
+        <key column="ID" not-null="true"/>
+      </joined-subclass>
+
+      <joined-subclass name="net.fenyo.gnetwatch.actions.ActionHTTP" table="ACTION_HTTP">
+        <key column="ID" not-null="true"/>
+      </joined-subclass>
+
+      <joined-subclass name="net.fenyo.gnetwatch.actions.ActionNmap" table="ACTION_NMAP">
+        <key column="ID" not-null="true"/>
+      </joined-subclass>
+
+      <joined-subclass name="net.fenyo.gnetwatch.actions.ActionPing" table="ACTION_PING">
+        <key column="ID" not-null="true"/>
+      </joined-subclass>
+
+      <joined-subclass name="net.fenyo.gnetwatch.actions.ActionGenericProcess" table="ACTION_PROCESS">
+        <key column="ID" not-null="true"/>
+      </joined-subclass>
+
+      <joined-subclass name="net.fenyo.gnetwatch.actions.ActionGenericSrc" table="ACTION_SOURCE">
+        <key column="ID" not-null="true"/>
+      </joined-subclass>
+
+      <joined-subclass name="net.fenyo.gnetwatch.actions.ActionSNMP" table="ACTION_SNMP">
+        <key column="ID" not-null="true"/>
+      </joined-subclass>
+
+    </joined-subclass>
+
+    <joined-subclass name="net.fenyo.gnetwatch.data.DataView" table="DATA_VIEW">
+      <key column="ID" not-null="true"/>
+
+      <many-to-one name="target" class="net.fenyo.gnetwatch.targets.Target"
+                   column="TARGET" cascade="save-update" not-null="true"/>
+
+      <joined-subclass name="net.fenyo.gnetwatch.data.ReachableView" table="REACHABLE_VIEW">
+        <key column="ID" not-null="true"/>
+      </joined-subclass>
+
+      <joined-subclass name="net.fenyo.gnetwatch.data.GenericProcessView" table="PROCESS_VIEW">
+        <key column="ID" not-null="true"/>
+      </joined-subclass>
+
+      <joined-subclass name="net.fenyo.gnetwatch.data.GenericSrcView" table="SOURCE_VIEW">
+        <key column="ID" not-null="true"/>
+      </joined-subclass>
+
+      <joined-subclass name="net.fenyo.gnetwatch.data.BytesReceivedView" table="BYTES_RECEIVED_VIEW">
+        <key column="ID" not-null="true"/>
+      </joined-subclass>
+
+      <joined-subclass name="net.fenyo.gnetwatch.data.BytesSentView" table="BYTES_SENT_VIEW">
+        <key column="ID" not-null="true"/>
+      </joined-subclass>
+
+      <joined-subclass name="net.fenyo.gnetwatch.data.FloodView" table="FLOOD_VIEW">
+        <key column="ID" not-null="true"/>
+      </joined-subclass>
+
+      <joined-subclass name="net.fenyo.gnetwatch.data.GeneralInformationsView" table="GENERAL_INFORMATIONS_VIEW">
+        <key column="ID" not-null="true"/>
+      </joined-subclass>
+
+      <joined-subclass name="net.fenyo.gnetwatch.data.HTTPPagesView" table="HTTP_PAGES_VIEW">
+        <key column="ID" not-null="true"/>
+      </joined-subclass>
+
+      <joined-subclass name="net.fenyo.gnetwatch.data.HTTPView" table="HTTP_VIEW">
+        <key column="ID" not-null="true"/>
+      </joined-subclass>
+
+      <joined-subclass name="net.fenyo.gnetwatch.data.NmapView" table="NMAP_VIEW">
+        <key column="ID" not-null="true"/>
+      </joined-subclass>
+
+    </joined-subclass>
+
+  </class>
+
+</hibernate-mapping>

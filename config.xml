@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+
+	<comment>General configuration properties</comment>
+
+	<entry key="net.fenyo.log4j">log4j.xml</entry>
+	<entry key="net.fenyo.initialobjects">initial-objects.xml</entry>
+	<entry key="net.fenyo.genericconffile">generic.xml</entry>
+
+	<entry key="net.fenyo.queues.count.icmp">2</entry>
+	<entry key="net.fenyo.queues.count.snmp">2</entry>
+	<entry key="net.fenyo.queues.count.flood">1</entry>
+	<entry key="net.fenyo.queues.count.http">1</entry>
+	<entry key="net.fenyo.queues.count.nmap">1</entry>
+	<entry key="net.fenyo.queues.count.process">1</entry>
+	<entry key="net.fenyo.queues.count.source">1</entry>
+
+	<entry key="net.fenyo.nmap.timeout">120000</entry>
+
+<!-- WINDOWS -->
+  <entry key="net.fenyo.ipaddresseditor.insertonkeypressed">true</entry>
+  <entry key="net.fenyo.ping.countparameter">-n</entry>
+  <entry key="net.fenyo.ping.regex">(.|\r|\n)*:.*?([0-9]+)[^0-9]*ms(.|\r|\n)*</entry>
+
+<!-- LINUX + X11 -->
+  <!-- TO RUN UNDER LINUX: COMMENT OUT THIS PART AND COMMENT THE WINDOWS ONE -->
+  <!--
+  <entry key="net.fenyo.ipaddresseditor.insertonkeypressed">false</entry>
+  <entry key="net.fenyo.ping.countparameter">-c</entry>
+  <entry key="net.fenyo.ping.regex">(.|\r|\n)*:.*?([0-9]+)\.[0-9]*[^0-9]*ms(.|\r|\n)*</entry>
+  -->
+
+<!-- FRENCH -->
+  <entry key="net.fenyo.language">fr</entry>
+  <entry key="net.fenyo.country">FR</entry>
+
+<!-- ENGLISH -->
+<!--
+  <entry key="net.fenyo.language">en</entry>
+  <entry key="net.fenyo.country">US</entry>
+-->
+
+</properties>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<gnetwatch>
+  <generic>
+
+    <template type="source">
+      <name>external file</name>
+      <title>external file</title>
+      <filename>FILENAME</filename>
+      <workdir></workdir>
+      <unit></unit>
+    </template>
+
+    <template type="process">
+      <name>external process</name>
+      <title>external process</title>
+      <cmdline>COMMAND_LINE</cmdline>
+      <workdir></workdir>
+      <unit></unit>
+    </template>
+
+    <template type="process">
+      <name>MS-Windows target: processor load</name>
+      <title>processor load</title>
+      <cmdline>generic\procload.bat CPU0 remote_host user@domain password</cmdline>
+      <unit>%</unit>
+    </template>
+
+    <template type="process">
+      <name>MS-Windows target: free physical memory</name>
+      <title>free physical memory</title>
+      <cmdline>generic\freephysmem.bat remote_host user@domain password</cmdline>
+      <unit>kb</unit>
+    </template>
+
+  </generic>
+</gnetwatch>

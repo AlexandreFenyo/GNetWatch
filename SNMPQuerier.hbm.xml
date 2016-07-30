@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+  <class name="net.fenyo.gnetwatch.SNMPQuerier" table="SNMP_QUERIER">
+
+    <id name="id" column="ID">
+      <generator class="increment"/>
+    </id>
+
+    <property name="address" not-null="true"/>
+    <property name="version" not-null="true"/>
+    <property name="sec" not-null="true"/>
+    <property name="retries" not-null="true"/>
+    <property name="timeout" not-null="true"/>
+    <property name="port" not-null="true"/>
+    <property name="community" not-null="true"/>
+    <property name="username" not-null="true"/>
+    <property name="passwordAuth" not-null="true"/>
+    <property name="passwordPriv" not-null="true"/>
+    <property name="PDUMaxSize" not-null="true"/>
+    <property name="SNMPCapable" not-null="true"/>
+    <property name="lastSysdescr" not-null="false"/>
+
+  </class>
+
+</hibernate-mapping>

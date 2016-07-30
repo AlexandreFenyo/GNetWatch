@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-15" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<!-- build/src/jakarta-log4j-1.2.8/src/java/org/apache/log4j/xml/examples -->
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+  <appender name="consoleAppender" class="org.apache.log4j.ConsoleAppender">
+    <layout class="org.apache.log4j.PatternLayout">
+<!-- for debugging -->
+      <param name="ConversionPattern" value="%d [%t] %p - %F:%L - %m%n"/>
+<!-- for fast debugging : no line number -->
+      <!-- <param name="ConversionPattern" value="%d [%t] %p - %F - %m%n"/> -->
+    </layout>
+  </appender>
+
+  <appender name="allMessagesAppender" class="org.apache.log4j.FileAppender">
+    <param name="File" value="all.log"/>
+    <param name="Append" value="true"/>
+    <layout class="org.apache.log4j.PatternLayout">
+<!-- for debugging -->
+    <param name="ConversionPattern" value="%d [%t] %p - %F:%L - %m%n"/>
+<!-- for fast debugging : no line number -->
+      <!-- <param name="ConversionPattern" value="%d [%t] %p - %F - %m%n"/> -->
+    </layout>
+  </appender>
+
+  <category name="net.fenyo">
+    <priority value="debug"/>
+    <appender-ref ref="consoleAppender"/>
+  </category>
+
+  <category name="org.hibernate">
+    <priority value="warn"/>
+    <appender-ref ref="consoleAppender"/>
+  </category>
+
+<!--  <category name="org.hibernate.SQL">
+    <priority value="debug"/>
+    <appender-ref ref="consoleAppender"/>
+  </category> -->
+
+<!--  <category name="org.hibernate.pretty">
+    <priority value="warn"/>
+    <appender-ref ref="allMessagesAppender"/>
+  </category> -->
+
+  <root>
+    <priority value="warn"/>
+    <appender-ref ref="allMessagesAppender"/>
+  </root>
+
+</log4j:configuration>

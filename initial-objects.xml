@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+    <gnetwatch>
+      <objects>
+        <target targetType="group">
+          <name>fenyo.net</name>
+        </target>
+        <target targetType="group">
+          <name>sourceforge.net</name>
+        </target>
+        <target targetType="group">
+          <name>gnetwatch.sourceforge.net</name>
+          <parent parentType="group">sourceforge.net</parent>
+        </target>
+        <target targetType="ipv4">
+          <address>66.35.250.209</address>
+          <parent parentType="group">gnetwatch.sourceforge.net</parent>
+        </target>
+        <target targetType="group">
+          <name>gw.fenyo.net</name>
+          <parent parentType="group">fenyo.net</parent>
+        </target>
+        <target targetType="ipv4">
+          <address>192.168.0.5</address>
+          <parent parentType="group">gw.fenyo.net</parent>
+        </target>
+        <target targetType="ipv4">
+          <address>213.41.133.35</address>
+          <parent parentType="group">gw.fenyo.net</parent>
+          <snmp><version>v2c</version><community>private</community></snmp>
+        </target>
+        <target targetType="group">
+          <name>sandbox</name>
+          <parent parentType="group">gw.fenyo.net</parent>
+          <parent parentType="group">gnetwatch.sourceforge.net</parent>
+        <target targetType="ipv4">
+          <address>127.0.0.1</address>
+          <parent parentType="group">sandbox</parent>
+        </target>
+        </target>
+      </objects>
+</gnetwatch>

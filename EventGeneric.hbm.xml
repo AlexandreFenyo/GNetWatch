@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+  <class name="net.fenyo.gnetwatch.data.EventGeneric" table="EVENT_GENERIC">
+    <id name="id" column="ID">
+      <generator class="increment"/>
+    </id>
+
+    <property name="date" not-null="true" column="DATE"/>
+
+    <property name="merged" not-null="true" column="MERGED"/>
+
+    <!-- for this association, the other direction would be useful,
+    but for performance issues, we must use this direction instead -->
+	<many-to-one name="eventList" cascade="none" column="ID_EVENT_LIST"/>
+
+    <joined-subclass name="net.fenyo.gnetwatch.data.EventBytesExchanged" table="EVENT_BYTES_EXCHANGED">
+
+      <key not-null="true" column="ID"/>
+      <property name="bytesExchanged" column="BYTES_EXCHANGED" not-null="true"/>
+
+      <joined-subclass name="net.fenyo.gnetwatch.data.EventBytesReceived" table="EVENT_BYTES_RECEIVED">
+        <key not-null="true" column="ID"/>
+      </joined-subclass>
+
+      <joined-subclass name="net.fenyo.gnetwatch.data.EventBytesSent" table="EVENT_BYTES_SENT">
+        <key not-null="true" column="ID"/>
+      </joined-subclass>
+
+    </joined-subclass>
+
+    <joined-subclass name="net.fenyo.gnetwatch.data.EventFlood" table="EVENT_FLOOD">
+      <key not-null="true" column="ID"/>
+      <property name="bytesSent" column="BYTES_SENT" not-null="true"/>
+    </joined-subclass>
+
+    <joined-subclass name="net.fenyo.gnetwatch.data.EventHTTP" table="EVENT_HTTP">
+      <key not-null="true" column="ID"/>
+      <property name="bytesReceived" column="BYTES_RECEIVED" not-null="true"/>
+    </joined-subclass>
+
+    <joined-subclass name="net.fenyo.gnetwatch.data.EventHTTPPages" table="EVENT_HTTP_PAGES">
+      <key not-null="true" column="ID"/>
+      <property name="pagesReceived" column="BYTES_RECEIVED" not-null="true"/>
+    </joined-subclass>
+
+    <joined-subclass name="net.fenyo.gnetwatch.data.EventNmap" table="EVENT_NMAP">
+      <key not-null="true" column="ID"/>
+      <property name="output" column="OUTPUT" not-null="true"/>
+    </joined-subclass>
+
+    <joined-subclass name="net.fenyo.gnetwatch.data.EventReachable" table="EVENT_REACHABLE">
+      <key column="ID"/>
+      <property name="reachable" column="REACHABLE" not-null="true"/>
+      <property name="delay" column="DELAY" not-null="true"/>
+    </joined-subclass>
+
+    <joined-subclass name="net.fenyo.gnetwatch.data.EventGenericProcess" table="EVENT_PROCESS">
+      <key column="ID"/>
+      <property name="reachable" column="REACHABLE" not-null="true"/>
+      <property name="delay" column="DELAY" not-null="true"/>
+    </joined-subclass>
+
+    <joined-subclass name="net.fenyo.gnetwatch.data.EventGenericSrc" table="EVENT_SOURCE">
+      <key column="ID"/>
+      <property name="reachable" column="REACHABLE" not-null="true"/>
+      <property name="delay" column="DELAY" not-null="true"/>
+      <property name="value1" column="VALUE1" not-null="true"/>
+      <property name="value2" column="VALUE2" not-null="true"/>
+      <property name="value3" column="VALUE3" not-null="true"/>
+      <property name="value4" column="VALUE4" not-null="true"/>
+      <property name="value5" column="VALUE5" not-null="true"/>
+      <property name="value6" column="VALUE6" not-null="true"/>
+      <property name="value7" column="VALUE7" not-null="true"/>
+      <property name="value8" column="VALUE8" not-null="true"/>
+      <property name="value9" column="VALUE9" not-null="true"/>
+      <property name="value10" column="VALUE10" not-null="true"/>
+      <property name="units" column="UNITS" not-null="true"/>
+    </joined-subclass>
+
+  </class>
+
+</hibernate-mapping>

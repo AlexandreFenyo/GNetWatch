@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+  <class name="net.fenyo.gnetwatch.GenericQuerier" table="GENERIC_QUERIER">
+
+    <id name="id" column="ID">
+      <generator class="increment"/>
+    </id>
+
+    <property name="title" not-null="true"/>
+    <property name="commandLine" not-null="true"/>
+    <property name="fileName" not-null="true"/>
+    <property name="workingDirectory" not-null="true"/>
+    <property name="unit" not-null="true"/>
+
+  </class>
+
+</hibernate-mapping>
